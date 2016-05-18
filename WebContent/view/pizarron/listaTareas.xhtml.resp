@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" href="../resources/css/dashpanel.css" />
+</h:head>
+<h:body>
+	<ui:include src="/view/menu/menu.xhtml" />
+	<h:form id="dashForm">
+        <p:growl id="msgs" showDetail="true" />
+ 		<p:panel header="Proyecto: #{pizarronMB.proyecto.nombreProyecto}">
+        <p:dashboard id="board" model="#{pizarronMB.pizarron}">
+            <p:ajax event="reorder" listener="#{pizarronMB.handleReorder}" update="msgs" />
+ 			
+ 			<p:panel id="historia0" header="Historias" styleClass="dsh_panel_hst_size">
+            </p:panel>
+            <p:panel id="historia1" header="HU 1" styleClass="dsh_panel_hst_size">
+                <h:outputText value="El equipo identifica y se reparte las historias de usuario" />
+            </p:panel>
+            <p:panel id="historia2" header="HU 2" styleClass="dsh_panel_hst_size">
+                <h:outputText value="El equipo pone a punto el CMS y crea repositorio" />
+            </p:panel>
+            <p:panel id="historia3" header="HU 3" styleClass="dsh_panel_hst_size">
+                <h:outputText value="El equipo realiza la ultima revision de las historias" />
+            </p:panel>
+            
+            <p:panel id="pendiente0" header="Pendiente" styleClass="dsh_panel_tsk_size">
+                
+            </p:panel>
+            <p:panel id="pendiente3" header="HU 1 Tarea 3 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El equipo crea la lista de tareas por historia de usuario" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+            <p:panel id="pendiente4" header="HU 1 Tarea 4 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El equipo estima el tiempo de desarrollo por cada tarea" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+ 			<p:panel id="pendiente5" header="HU 1 Tarea 5 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El facilitador crea el documento de la planeacion de esfuerzo (Sprint)" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+            <p:panel id="pendiente6" header="HU 2 Tarea 1 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El equipo integra el diseno con el CMS" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+            <p:panel id="pendiente7" header="HU 2 Tarea 2 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El equipo crea el repositorio del proyecto en Git" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+            <p:panel id="pendiente8" header="HU 2 Tarea 3 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El equipo sube la primer version de TCT al repositorio del proyecto" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+            <p:panel id="pendiente9" header="HU 3 Tarea 1 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El equipo realiza la ultima revision de los sprints y se reparte las tareas" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+            
+            <p:panel id="trabajando0" header="En proceso " styleClass="dsh_panel_tsk_size">
+            </p:panel>
+            
+            <p:panel id="trabajando1" header="HU 1 Tarea 2 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El facilitador (scrum master) prioriza las historias de usuario" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+         
+            <p:panel id="terminada0" header="Hecho" styleClass="dsh_panel_tsk_size">
+            </p:panel>
+            <p:panel id="terminada1" header="HU 1 Tarea 1 " styleClass="dsh_panel_tsk_size">
+                <h:outputText value="El facilitador (scrum master) crea el documento de las historias de usuario" styleClass="dsh_panel_tsk_fnt_size" />
+            </p:panel>
+            
+        </p:dashboard>
+ 
+        <div style="clear:both" />
+        </p:panel>
+    </h:form>
+ 
+</h:body>
+</html>

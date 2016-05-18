@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" href="../resources/css/dashpanel.css" />
+</h:head>
+<h:body>
+	<ui:include src="/view/menu/menu.xhtml" />
+	<div class="ui-grid ui-grid-responsive">
+		<h:form id="addProjForm">
+			<p:panel id="addProjPanel" header="Registro de Proyecto" style="margin-bottom:20px">
+				<f:facet name="header">
+            		Registro de proyectos
+        		</f:facet>
+
+				<p:messages id="messages" />
+				<p:panelGrid columns="4" layout="grid" style="margin: 0 auto;">
+					<f:facet name="header">
+    					Datos Generales
+    				</f:facet>
+					<p:outputLabel for="name" value="Nombre proyecto" />
+					<p:inputText id="name" value="#{registroMB.nombreProyecto}" required="true" />
+
+					<p:outputLabel for="objetive" value="Objetivo" />
+					<p:inputTextarea id="objetive" value="#{registroMB.objetivoProyecto}" required="true" />
+
+					<p:outputLabel for="fecInicio" value="Fecha inicio" />
+					<p:calendar id="fecInicio" value="#{registroMB.fechaInicio}" required="true" />
+
+					<p:outputLabel for="fecTermino" value="Fecha termino" />
+					<p:calendar id="fecTermino" value="#{registroMB.fechaTermino}" required="true" />
+					
+				</p:panelGrid>
+				<p:panelGrid columns="4" id="buttonPanelGrid" style="margin: 0px auto;">
+					<p:commandButton value="Guardar" update="addProjPanel"  
+							actionListener="#{registroMB.saveProject}" icon="ui-icon-check" />
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+</html>

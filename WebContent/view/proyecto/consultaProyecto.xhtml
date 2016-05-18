@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" href="../resources/css/dashpanel.css" />
+</h:head>
+<h:body>
+	<ui:include src="/view/menu/menu.xhtml" />
+	<div class="ui-grid ui-grid-responsive">
+		<p:panel id="queryProjPanel" header="Consulta Proyectos"
+			style="margin-bottom:20px">
+			<h:form id="queryProjForm">
+				<p:growl id="growl" sticky="true" showDetail="true" />
+				<p:accordionPanel multiple="true" activeIndex="0,1" >
+					<p:messages />
+					<p:tab title="Parametros de consulta">
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:outputLabel value="ID proyecto" />
+								<p:inputText id="idProyecto" value="#{consultaMB.idProyecto}" />
+							<p:outputLabel value="Nombre proyecto" />
+								<p:inputText id="nombreProyecto" value="#{consultaMB.nombreProyecto}" />
+							<h:panelGroup>
+								<p:commandButton value="Buscar" ajax="false"
+										actionListener="#{consultaMB.searchProject}" 
+										update=":queryProjForm:growl, :queryProjForm"
+										process="@this" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Lista proyectos" id="tabProjList" >
+						<p:dataTable id="projects" var="proj"
+							value="#{consultaMB.projectLazy}"
+							style="width:60%;padding-left:20%;padding-right:20%"
+							styleClass="table table-hover" rows="10"
+							rowsPerPageTemplate="10,20,30,50" paginator="true" lazy="true"
+							selectionMode="single" selection="#{consultaMB.selectedProject}" >
+							<p:ajax event="rowSelect" listener="#{consultaMB.onRowSelect}"  
+									update=":queryProjForm:proyDetail" oncomplete="PF('proyDialog').show()" />
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<h:outputText value="#{proj.proyectoId}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Proyecto" />
+								</f:facet>
+								<h:outputText value="#{proj.nombreProyecto}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Fecha de Inicio" />
+								</f:facet>
+								<h:outputText value="#{proj.fechaInicio}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Fecha de Termino" />
+								</f:facet>
+								<h:outputText value="#{proj.fechaTermino}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+				</p:accordionPanel>
+
+				<p:dialog header="Detalle del Proyecto" widgetVar="proyDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="proyDetail" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty consultaMB.selectedProject}"
+							columnClasses="label,value">
+							<f:facet name="header">
+								<h:outputText value="#{consultaMB.selectedProject.nombreProyecto}" />
+							</f:facet>
+
+							<h:outputText value="Id:" />
+							<h:outputText value="#{consultaMB.selectedProject.proyectoId}" />
+
+							<h:outputText value="Proyecto:" />
+							<h:outputText value="#{consultaMB.selectedProject.nombreProyecto}" />
+
+							<h:outputText value="Objetivo:" />
+							<h:outputText value="#{consultaMB.selectedProject.objetivo}" />
+
+							<h:outputText value="Fecha inicio:" />
+							<h:outputText value="#{consultaMB.selectedProject.fechaInicio}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+							
+							<h:outputText value="Fecha termino:" />
+							<h:outputText value="#{consultaMB.selectedProject.fechaTermino}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:panelGrid>
+						<h:panelGrid>
+							<p:tree value="#{consultaMB.treeProj}" var="node">
+								<p:treeNode>
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</h:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</p:panel>
+	</div>
+</h:body>
+</html>

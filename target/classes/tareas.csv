@@ -1,0 +1,14 @@
+TareaId|HistoriaFk|NumeroTarea|NombreTarea|DescripcionTarea|Consecutivo|Estatus|ColaboradorFk|FechaRegistro|UsuarioRegistro
+1|1|1|El facilitador (scrum master) crea el documento de las historias de usuario|El facilitador (scrum master) crea el documento de las historias de usuario|1|terminada|0|25,4,2016|lsanchez
+2|1|2|El facilitador (scrum master) prioriza las historias de usuario|El facilitador (scrum master) prioriza las historias de usuario|2|terminada|0|25,4,2016|lsanchez
+3|1|3|El equipo crea la lista de tareas por historia de usuario|El equipo crea la lista de tareas por historia de usuario|3|terminada|0|25,4,2016|lsanchez
+4|1|4|El equipo estima el tiempo de desarrollo por cada tarea|El equipo estima el tiempo de desarrollo por cada tarea|4|terminada|0|25,4,2016|lsanchez
+5|1|5|El facilitador crea el documento de la planeacion de esfuerzo (Sprint)|El facilitador crea el documento de la planeacion de esfuerzo (Sprint)|5|terminada|0|25,4,2016|lsanchez
+6|2|1|El equipo integra el diseno con el CMS|El equipo integra el diseno con el CMS|1|terminada|0|25,4,2016|lsanchez
+7|2|2|El equipo crea el repositorio del proyecto en Git|El equipo crea el repositorio del proyecto en Git|2|terminada|0|25,4,2016|lsanchez
+8|2|3|El equipo sube la primer version de TCT al repositorio del proyecto|El equipo sube la primer version de TCT al repositorio del proyecto|3|terminada|0|25,4,2016|lsanchez
+9|3|1|El equipo realiza la ultima revision de los sprints y se reparte las tareas|El equipo realiza la ultima revision de los sprints y se reparte las tareas|1|trabajando|0|25,4,2016|lsanchez
+10|4|1|Consultar las ganancias del usuaro|Consultar las ganancias del usuaro|1|pendiente|0|28,4,2016|lsanchez
+11|4|2|Consultar las comisiones del comisionista|Consultar las comisiones del comisionista|2|pendiente|0|28,4,2016|lsanchez
+12|4|3|Diseño del reporte|Diseño del reporte|3|pendiente|0|28,4,2016|lsanchez
+13|5|1|Diseñar barra de herramientas|Diseñar barra de herramientas|1|pendiente|0|28,4,2016|lsanchez

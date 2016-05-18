@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" href="../resources/css/dashpanel.css" />
+</h:head>
+<h:body>
+	<ui:include src="/view/menu/menu.xhtml" />
+	<div class="ui-grid ui-grid-responsive">
+		<p:panel id="addProjPanel" header="Registro de Proyecto"
+			style="margin-bottom:20px">
+			<h:form id="addProjForm">
+				<p:growl id="growl" sticky="true" showDetail="true" />
+
+				<p:wizard flowListener="#{registroMB.onFlowProcess}">
+					<p:tab id="grales" title="Proyecto">
+						<p:panel header="Datos Generales">
+							<p:messages />
+
+							<p:panelGrid columns="4" layout="grid" style="margin: 0 auto;">
+								<p:outputLabel for="name" value="Nombre proyecto" />
+								<p:inputText id="name" value="#{registroMB.nombreProyecto}"
+									required="true" />
+
+								<p:outputLabel for="objetive" value="Objetivo" />
+								<p:inputTextarea id="objetive"
+									value="#{registroMB.objetivoProyecto}" required="true" />
+
+								<p:outputLabel for="fecInicio" value="Fecha inicio" />
+								<p:calendar id="fecInicio" value="#{registroMB.fechaInicio}"
+									required="true" />
+
+								<p:outputLabel for="fecTermino" value="Fecha termino" />
+								<p:calendar id="fecTermino" value="#{registroMB.fechaTermino}"
+									required="true" />
+
+								<p:outputLabel value="Saltar a confirmacion:" />
+								<h:selectBooleanCheckbox value="#{registroMB.skip}" />
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="historias" title="Historias">
+						<p:panel header="Historias de Usuarios">
+							<p:messages />
+
+							<p:panelGrid layout="gridHst" style="margin: 0 auto;">
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Historia de Usuario" />
+									</p:column>
+									<p:column>
+										<p:inputTextarea id="historia"
+											value="#{registroMB.historiaUsr}" />
+									</p:column>
+									<p:column>
+										<!-- 										<p:commandButton value="Agregar" -->
+										<!-- 												action="#{registroMB.addHistoria}" update="listboxHst, orderListHst, historia" /> -->
+										<p:commandButton value="Agregar"
+											action="#{registroMB.addHistoria}"
+											update="listboxHst, historia" />
+									</p:column>
+								</p:row>
+
+								<p:row>
+									<p:column colspan="3">
+										<p:dataList id="listboxHst" value="#{registroMB.histUsrList}"
+											var="hst">
+											<f:facet name="header">
+            									Historias
+        									</f:facet>
+        										#{hst.nombreHistoria} #{hst.descripcionHistoria}
+    									</p:dataList>
+									</p:column>
+								</p:row>
+
+								<!-- 								<p:row> -->
+								<!-- 									<p:column colspan="3" > -->
+								<!-- 										<p:orderList id="orderListHst" value="#{registroMB.histUsrList}" var="hist"  -->
+								<!-- 												itemValue="#{hist}" converter="historiaConverter"> -->
+								<!-- 											<p:column style="width:75%;"> -->
+								<!-- 												#{hist.nombreHistoria} #{hist.descripcionHistoria} -->
+								<!-- 											</p:column> -->
+								<!-- 										</p:orderList> -->
+								<!-- 									</p:column> -->
+								<!-- 								</p:row> -->
+
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Saltar a confirmacion:" />
+									</p:column>
+									<p:column colspan="2">
+										<h:selectBooleanCheckbox value="#{registroMB.skip}" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="tareas" title="Tareas">
+						<p:panel id="panelTareas" header="Tareas de Historias">
+							<p:messages />
+							<p:panelGrid id="gridInputTareas" style="margin: 0 auto;">
+
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Historia de Usuario " />
+									</p:column>
+									<p:column colspan="2">
+										<p:selectOneMenu id="nombreHst" value="#{registroMB.nombreHistoria}">
+											<f:selectItems value="#{registroMB.historiasSelItList}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:row>
+								
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Nombre Tarea " />
+									</p:column>
+									<p:column colspan="2">
+										<p:inputText id="nameTarea" value="#{registroMB.nombreTarea}" />
+									</p:column>
+								</p:row>
+								
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Descripcion Tarea" />
+									</p:column>
+									<p:column colspan="2">
+										<p:inputTextarea id="descTarea" value="#{registroMB.descTarea}" />
+									</p:column>
+								</p:row>
+								
+								<p:row>
+									<p:column colspan="3">
+										<p:commandButton value="Agregar" action="#{registroMB.addTarea}"
+										update="nameTarea, descTarea, listboxTar" />
+									</p:column>
+								</p:row>
+								
+								<p:row>
+									<p:column colspan="3">
+										<p:dataList id="listboxTar" value="#{registroMB.tareasList}"
+												var="tar">
+											<f:facet name="header">
+            									Tareas
+        									</f:facet>
+        										#{tar.nombreTarea}
+    									</p:dataList>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="confirm" title="Confirmacion">
+						<p:panel header="Confirmacion">
+							<h:panelGrid id="confirmation" columns="3"
+								columnClasses="grid,grid,grid">
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputText value="Nombre Proyecto: " />
+									<h:outputText value="#{registroMB.nombreProyecto}"
+										styleClass="outputLabel" />
+
+									<h:outputText value="Objetivo: " />
+									<h:outputText value="#{registroMB.objetivoProyecto}"
+										styleClass="outputLabel" />
+
+									<h:outputText value="Fecha inicio: " />
+									<h:outputText value="#{registroMB.fechaInicio}"
+										styleClass="outputLabel">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+									</h:outputText>
+									<h:outputText value="Fecha termino: " />
+									<h:outputText value="#{registroMB.fechaTermino}"
+										styleClass="outputLabel">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</h:panelGrid>
+
+<!-- 								<h:panelGrid columns="2" columnClasses="label, value"> -->
+<!-- 									<h:outputText value="Historias: " /> -->
+<!-- 									<h:outputText value="" styleClass="outputLabel" /> -->
+<!-- 								</h:panelGrid> -->
+<!-- 								<h:panelGrid> -->
+<!-- 									<p:dataTable var="histConf" value="#{registroMB.histUsrList}" -->
+<!-- 										scrollable="true" scrollHeight="150"> -->
+<!-- 										<f:facet name="header"> -->
+<!--         									Historias de Usuario -->
+<!--     									</f:facet> -->
+									
+<!-- 										<p:column headerText="Id"> -->
+<!-- 											<h:outputText value="#{histConf.nombreHistoria}" /> -->
+<!-- 										</p:column> -->
+
+<!-- 										<p:column headerText="Historia"> -->
+<!-- 											<h:outputText value="#{histConf.descripcionHistoria}" /> -->
+<!-- 										</p:column> -->
+<!-- 									</p:dataTable> -->
+<!-- 								</h:panelGrid> -->
+
+<!-- 								<h:panelGrid columns="2" columnClasses="label, value"> -->
+<!-- 									<h:outputText value="Tareas: " /> -->
+<!-- 									<h:outputText value="" styleClass="outputLabel" /> -->
+<!-- 								</h:panelGrid> -->
+<!-- 								<h:panelGrid> -->
+<!-- 									<p:dataTable var="tarConf" value="#{registroMB.tareasList}" -->
+<!-- 										scrollable="true" scrollHeight="150"> -->
+<!-- 										<f:facet name="header"> -->
+<!--         									Tareas de Historia -->
+<!--     									</f:facet> -->
+									
+<!-- 										<p:column headerText="Historia Id"> -->
+<!-- 											<h:outputText value="HU#{tarConf.historiaFk}" /> -->
+<!-- 										</p:column> -->
+										
+<!-- 										<p:column headerText="Id"> -->
+<!-- 											<h:outputText value="#{tarConf.numeroTarea}" /> -->
+<!-- 										</p:column> -->
+										
+<!-- 										<p:column headerText="Tarea"> -->
+<!-- 											<h:outputText value="#{tarConf.nombreTarea}" /> -->
+<!-- 										</p:column> -->
+<!-- 									</p:dataTable> -->
+<!-- 								</h:panelGrid> -->
+								<h:panelGrid>
+									<p:tree value="#{registroMB.treeProj}" var="node">
+										<p:treeNode>
+											<h:outputText value="#{node}" />
+										</p:treeNode>
+									</p:tree>
+								</h:panelGrid>
+							</h:panelGrid>
+
+							<p:commandButton value="Continuar"
+								actionListener="#{registroMB.saveProject}" update="growl"
+								process="@this" />
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</p:panel>
+	</div>
+</h:body>
+</html>

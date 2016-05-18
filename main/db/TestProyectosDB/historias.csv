@@ -1,0 +1,6 @@
+HistoriaId|ProyectoFk|NombreHistoria|DescripcionHistoria|Consecutivo|EsfuerzoFk|FechaRegistro|UsuarioRegistro
+1|1|HU1|El equipo identifica y se reparte las historias de usuarios|1|0|25,4,2016|lsanchez
+2|1|HU2|El equipo pone a punto el CMS y crea repositorio|2|0|25,4,2016|lsanchez
+3|1|HU3|El equipo realiza la ultima version de las historias|3|0|25,4,2016|lsanchez
+4|2|HU1|El usuario quiere conocer las ganancias mensuales del comisionista|2|0|28,4,2016|lsanchez
+5|2|HU2|El usuario quiere tener barra de herramientas para configurar las comisiones|1|0|28,4,2016|lsanchez

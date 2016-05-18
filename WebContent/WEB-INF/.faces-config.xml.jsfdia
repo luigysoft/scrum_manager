@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="#index::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="/index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="menu::#view#menu#menu.xhtml" NAME="output1"
+    PATH="/view/menu/menu.xhtml" TARGET="rules:#view#menu#menu.xhtml"
+    TITLE="menu" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="#pizarron::#view#pizarron#listaTareas.xhtml"
+    NAME="output2" PATH="/view/pizarron/listaTareas.xhtml"
+    TARGET="rules:#view#pizarron#listaTareas.xhtml" TITLE="/pizarron" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="#proyecto::#view#pizarron#proyecto.xhtml"
+    NAME="output3" PATH="/view/pizarron/proyecto.xhtml"
+    TARGET="rules:#view#pizarron#proyecto.xhtml" TITLE="/proyecto" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="#registro::#view#proyecto#registroProy.xhtml" NAME="output4"
+    PATH="/view/proyecto/registroProy.xhtml"
+    TARGET="rules:#view#proyecto#registroProy.xhtml" TITLE="/registro" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="#consulta::#view#proyecto#consultaProyecto.xhtml" NAME="output5"
+    PATH="/view/proyecto/consultaProyecto.xhtml"
+    TARGET="rules:#view#proyecto#consultaProyecto.xhtml"
+    TITLE="/consulta" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="#priorizar::#view#proyecto#edicionProyecto.xhtml" NAME="output6"
+    PATH="/view/proyecto/edicionProyecto.xhtml"
+    TARGET="rules:#view#proyecto#edicionProyecto.xhtml"
+    TITLE="/priorizar" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#view#menu#menu.xhtml"
+  PATH="/view/menu/menu.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#view#pizarron#listaTareas.xhtml"
+  PATH="/view/pizarron/listaTareas.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#view#pizarron#proyecto.xhtml"
+  PATH="/view/pizarron/proyecto.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="272,433,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#view#proyecto#registroProy.xhtml"
+  PATH="/view/proyecto/registroProy.xhtml" SHAPE="304,609,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#view#proyecto#consultaProyecto.xhtml"
+  PATH="/view/proyecto/consultaProyecto.xhtml" SHAPE="304,641,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#view#proyecto#edicionProyecto.xhtml"
+  PATH="/view/proyecto/edicionProyecto.xhtml" SHAPE="304,673,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

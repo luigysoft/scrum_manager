@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" href="../resources/css/dashpanel.css" />
+</h:head>
+<h:body>
+	<ui:include src="/view/menu/menu.xhtml" />
+	<div class="ui-grid ui-grid-responsive">
+		<p:panel id="editProjPanel" header="Edicion Proyectos"
+			style="margin-bottom:20px">
+			<h:form id="editProjForm">
+				<p:growl id="growl" sticky="true" showDetail="true" />
+				<p:accordionPanel multiple="true" activeIndex="0,1" >
+					<p:messages />
+					<p:tab title="Parametros de consulta">
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:outputLabel value="ID proyecto" />
+								<p:inputText id="idProyecto" value="#{edicionMB.idProyecto}" />
+							<p:outputLabel value="Nombre proyecto" />
+								<p:inputText id="nombreProyecto" value="#{edicionMB.nombreProyecto}" />
+							<h:panelGroup>
+								<p:commandButton value="Buscar" ajax="false"
+										actionListener="#{edicionMB.searchProject}" 
+										update=":editProjForm:growl, :editProjForm"
+										process="@this" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab title="Lista proyectos" id="tabProjList" >
+						<p:dataTable id="projects" var="proj"
+							value="#{edicionMB.projectLazy}"
+							style="width:60%;padding-left:20%;padding-right:20%"
+							styleClass="table table-hover" rows="10"
+							rowsPerPageTemplate="10,20,30,50" paginator="true" lazy="true"
+							selectionMode="single" selection="#{edicionMB.selectedProject}" >
+							<p:ajax event="rowSelect" listener="#{edicionMB.onRowSelect}"  
+									update=":editProjForm:storyList, :editProjForm:sprints" 
+									oncomplete="PF('storyDialog').show()" />
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<h:outputText value="#{proj.proyectoId}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Proyecto" />
+								</f:facet>
+								<h:outputText value="#{proj.nombreProyecto}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Fecha de Inicio" />
+								</f:facet>
+								<h:outputText value="#{proj.fechaInicio}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Fecha de Termino" />
+								</f:facet>
+								<h:outputText value="#{proj.fechaTermino}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+				</p:accordionPanel>
+
+				<p:dialog header="#{edicionMB.menuOption ne 'sprints'?'Historias de Usuario':'Sprints'}" widgetVar="storyDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false" width="550" >
+					<p:outputPanel id="storyList" style="width: 100%;text-align:center;" rendered="#{edicionMB.menuOption ne 'sprints'}" >
+						<f:facet name="header">
+							<h:outputText value="#{edicionMB.selectedProject.nombreProyecto}" />
+						</f:facet>
+						<p:dataTable id="storiesTbl" var="storyRow"
+								value="#{edicionMB.proyecto.historiasUsuarios}"
+								draggableRows="true">
+							<p:ajax event="rowReorder" listener="#{edicionMB.onRowReorder}" 
+									update=":editProjForm:growl" />
+							<f:facet name="header">
+            					Lista de historias priorizada
+        					</f:facet>
+							<p:column headerText="Id" style="width:10%;">
+								<h:outputText value="#{storyRow.nombreHistoria}"  />
+							</p:column>
+
+							<p:column headerText="Historia" style="width:90%;">
+								<h:outputText value="#{storyRow.descripcionHistoria}" styleClass="tbl_story_fnt_size" />
+							</p:column>
+
+						</p:dataTable>
+						
+<!-- 						<p:orderList id="storyOL" -->
+<!-- 							value="#{edicionMB.proyecto.historiasUsuarios}" var="story" -->
+<!-- 							itemValue="#{story}" converter="historiaConverter" -->
+<!-- 							style="width: 400px;"> -->
+<!-- 							<p:column style="width:30%;"> -->
+<!-- 									#{story.nombreHistoria}										 -->
+<!-- 								</p:column> -->
+<!-- 							<p:column style="width:60%;"> -->
+<!-- 									#{story.descripcionHistoria}										 -->
+<!-- 								</p:column> -->
+<!-- 						</p:orderList> -->
+					</p:outputPanel>
+					
+					<p:outputPanel id="sprints" style="width: 100%;text-align:center;" rendered="#{edicionMB.menuOption eq 'sprints'}" >
+						<f:facet name="header">
+							<h:outputText value="#{edicionMB.selectedProject.nombreProyecto}" />
+						</f:facet>
+						<h:panelGrid columns="3" cellpadding="5">
+							<h:outputLabel for="menu" value="Historias:" />
+							<p:selectCheckboxMenu id="menu" value="#{edicionMB.selectHistToSprint}" 
+									converter="historiaConverter" filter="true" 
+									filterMatchMode="startsWith" panelStyle="width:400px">
+            					<f:selectItems value="#{edicionMB.historiasRows}" var="selHst" itemLabel="#{selHst.nombreHistoria} #{selHst.descripcionHistoria}"
+                                    	itemValue="#{selHst}" />
+        					</p:selectCheckboxMenu>
+        					<p:commandLink value="Continuar" update="display" />
+						</h:panelGrid>
+						<p:outputPanel id="display" style="width:400px;padding-left:5px;margin-top:10px">
+        					<p:dataList value="#{edicionMB.selectHistToSprint}" var="story" emptyMessage="No hay historias seleccionadas">
+            					#{story.nombreHistoria} #{story.descripcionHistoria}
+        					</p:dataList>
+    					</p:outputPanel>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</p:panel>
+	</div>
+</h:body>
+</html>

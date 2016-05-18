@@ -1,0 +1,29 @@
+<ui:composition 
+     xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<h1 class="title ui-widget-header ui-corner-all">SmartTools Scrum Manager</h1>
+	<h:form>
+		<p:commandButton id="dynaButton" value="Proyectos" type="button" icon="ui-icon-extlink"/>
+		<p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+			<p:submenu label="Registro" >
+            	<p:menuitem value="Nuevo" outcome="/registro" icon="ui-icon-plus" />
+        	</p:submenu>
+        	<p:submenu label="Editar" >
+            	<p:menuitem value="Priorizar" outcome="/priorizar" icon="ui-icon-triangle-2-n-s" >
+            		<f:param name="option" value="priorization" />
+            	</p:menuitem>
+            	<p:menuitem value="Iteraciones" outcome="/priorizar" icon="ui-icon-arrowrefresh-1-w" >
+            		<f:param name="option" value="sprints" />
+            	</p:menuitem>
+        	</p:submenu>
+        	<p:submenu label="Consulta" >
+            	<p:menuitem value="Datos" outcome="/consulta" icon="ui-icon-search" />
+            	<p:menuitem value="Pizarron" outcome="/proyecto" icon="ui-icon-calculator" />
+            </p:submenu>        
+    	</p:menu>
+	</h:form>
+</ui:composition>
