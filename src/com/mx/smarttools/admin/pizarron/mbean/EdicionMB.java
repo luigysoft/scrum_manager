@@ -16,7 +16,9 @@ import javax.faces.model.SelectItem;
 
 import org.primefaces.event.ReorderEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.TreeNode;
 
 import com.mx.smarttools.admin.pizarron.mbean.lazy.ProyectoDataModel;
 import com.mx.smarttools.admin.proyecto.model.Esfuerzo;
@@ -47,6 +49,8 @@ public class EdicionMB {
 	
 	private Esfuerzo newSprint;
 
+	private TreeNode treeSprint;
+	
 	@PostConstruct
     public void init() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -90,6 +94,10 @@ public class EdicionMB {
 					newSprint = new Esfuerzo();
 					System.out.println("Opcion seleccionada: "+menuOption);
 					historiasRows = getPizarronMB().getHistoriaService().getHistoriasByParameter(queryParameter);
+					
+					List<Esfuerzo> esfuerzoList = getPizarronMB().getEsfuerzoService().getEsfuerzosByIdProject(projectId);
+					
+					treeSprint = new DefaultTreeNode("Sprint", null);
 				}
 			}
 		}catch(Exception ex){
@@ -224,5 +232,13 @@ public class EdicionMB {
 
 	public void setNewSprint(Esfuerzo newSprint) {
 		this.newSprint = newSprint;
+	}
+
+	public TreeNode getTreeSprint() {
+		return treeSprint;
+	}
+
+	public void setTreeSprint(TreeNode treeSprint) {
+		this.treeSprint = treeSprint;
 	}
 }

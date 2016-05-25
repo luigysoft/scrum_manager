@@ -21,6 +21,7 @@ import org.primefaces.model.DefaultDashboardModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mx.smarttools.admin.pizarron.service.EsfuerzoService;
 import com.mx.smarttools.admin.pizarron.service.EstatusTareaService;
 import com.mx.smarttools.admin.pizarron.service.HistoriaService;
 import com.mx.smarttools.admin.pizarron.service.ProyectoService;
@@ -46,6 +47,8 @@ public class PizarronMB implements Serializable {
 	private EstatusTareaService estatusTareaService;
 	@Autowired
 	private HistoriaService historiaService;
+	@Autowired
+	private EsfuerzoService esfuerzoService;
 	
 	private DashboardModel pizarron;
 	private Proyecto proyecto;
@@ -174,5 +177,13 @@ public class PizarronMB implements Serializable {
 
 	public void setHistoriaService(HistoriaService historiaService) {
 		this.historiaService = historiaService;
+	}
+
+	public EsfuerzoService getEsfuerzoService() {
+		return esfuerzoService;
+	}
+
+	public void setEsfuerzoService(EsfuerzoService esfuerzoService) {
+		this.esfuerzoService = esfuerzoService;
 	}
 }
