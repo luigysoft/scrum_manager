@@ -113,15 +113,26 @@
 						<f:facet name="header">
 							<h:outputText value="#{edicionMB.selectedProject.nombreProyecto}" />
 						</f:facet>
-						<h:panelGrid columns="3" cellpadding="5">
-							<h:outputLabel for="menu" value="Historias:" />
+						<h:panelGrid columns="2" >
+							<h:outputText value="Objetivo: " />
+							<p:inputText id="obj" value="#{edicionMB.newSprint.objetivo}" />
+							
+							<h:outputText value="Fecha inicio: " />
+							<p:calendar id="fecInicio" value="#{edicionMB.newSprint.fechaInicio}" />
+							
+							<h:outputText value="Fecha termino: " />
+							<p:calendar id="fecTerm" value="#{edicionMB.newSprint.fechaTermino}" />
+							
+							<h:outputLabel value="Historias:" />
 							<p:selectCheckboxMenu id="menu" value="#{edicionMB.selectHistToSprint}" 
 									converter="historiaConverter" filter="true" 
 									filterMatchMode="startsWith" panelStyle="width:400px">
             					<f:selectItems value="#{edicionMB.historiasRows}" var="selHst" itemLabel="#{selHst.nombreHistoria} #{selHst.descripcionHistoria}"
                                     	itemValue="#{selHst}" />
         					</p:selectCheckboxMenu>
-        					<p:commandLink value="Continuar" update="display" />
+        					
+        					<h:panelGroup><p:commandLink value="Continuar" update="display" /></h:panelGroup>
+						
 						</h:panelGrid>
 						<p:outputPanel id="display" style="width:400px;padding-left:5px;margin-top:10px">
         					<p:dataList value="#{edicionMB.selectHistToSprint}" var="story" emptyMessage="No hay historias seleccionadas">

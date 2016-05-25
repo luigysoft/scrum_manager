@@ -10,7 +10,7 @@ public interface EsfuerzoDAO {
 	public Esfuerzo update(int id, Esfuerzo e) throws Exception;
 	public boolean delete(int id);
 	public boolean delete(Esfuerzo e);
-	public Esfuerzo getById(int id);
+	public Esfuerzo getById(int id) throws IOException;
 	public List<Esfuerzo> getAll() throws IOException;
 	public List<Esfuerzo> getByIdEsfuerzo(int id) throws IOException;
 	public int getMaxId() throws IOException;

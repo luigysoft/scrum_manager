@@ -1,7 +1,9 @@
 package com.mx.smarttools.admin.proyecto.dao;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,15 +91,55 @@ public class EsfuerzoDAOImpl implements EsfuerzoDAO {
 	}
 
 	@Override
-	public Esfuerzo getById(int id) {
+	public Esfuerzo getById(int id) throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		List<Esfuerzo> esfuerzoList = getAll();
+		Esfuerzo esfuerzo = null;
+		
+		Iterator<Esfuerzo> iter = esfuerzoList.iterator();
+		
+		while(iter.hasNext()){
+			Esfuerzo esfuerzoAux = iter.next();
+			
+			if(esfuerzoAux.getEsfuerzoId() == id){
+				esfuerzo = esfuerzoAux;
+				break;			}
+		}
+		return esfuerzo;
 	}
 
 	@Override
 	public List<Esfuerzo> getAll() throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		fileReader.setPathFile("C:\\TestProyectosDB\\esfuerzos.csv");
+		
+		List<String> renglonesList = null;
+		List<Esfuerzo> esfuerzosList = null;
+		String[] items;
+		int numberLine = 0;
+		
+		renglonesList = fileReader.readFile();
+		
+		if(renglonesList.size() > 1){
+			esfuerzosList = new ArrayList<Esfuerzo>();
+			
+			for(String renglon: renglonesList){
+				items = renglon.split("\\|");
+				
+				if(items.length == 8) {
+					if(numberLine > 0) {
+						Esfuerzo esfuerzo = getEsfuerzoDeArray(items);
+						
+						if(esfuerzo != null){
+							esfuerzosList.add(esfuerzo);
+						}
+					}
+					
+					numberLine++;
+				}
+			}
+		}
+		return esfuerzosList;
 	}
 
 	@Override
@@ -126,9 +168,47 @@ public class EsfuerzoDAOImpl implements EsfuerzoDAO {
 	@Override
 	public List<Esfuerzo> getByIdProyecto(int idProy) throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		List<Esfuerzo> esfuerzoList = getAll();
+		
+		Iterator<Esfuerzo> iter = esfuerzoList.iterator();
+		
+		while(iter.hasNext()){
+			Esfuerzo aux = iter.next();
+			
+			if(aux.getProyectoFk() != idProy){
+				iter.remove();
+			}
+		}
+		
+		return esfuerzoList;
 	}
-
+	
+	private Esfuerzo getEsfuerzoDeArray(String[] itemsLine){
+		Esfuerzo esfuerzo = null;
+		
+		if(itemsLine[0] != null && itemsLine[1] != null && itemsLine[2] != null 
+				&& itemsLine[3] != null && itemsLine[4] != null && itemsLine[5] != null
+				&& itemsLine[6] != null && itemsLine[7] != null){
+			esfuerzo = new Esfuerzo();
+			
+			esfuerzo.setEsfuerzoId(Integer.parseInt(
+					itemsLine[0]));
+			esfuerzo.setProyectoFk(Integer.parseInt(
+					itemsLine[1]));
+			esfuerzo.setObjetivo(itemsLine[2]);
+			esfuerzo.setFechaInicio(
+					FechaUtils.getFechaFromParse(itemsLine[3]));
+			esfuerzo.setFechaTermino(
+					FechaUtils.getFechaFromParse(itemsLine[4]));
+			esfuerzo.setConsecutivo(Integer.parseInt(
+					itemsLine[5]));
+			esfuerzo.setFechaRegistro(
+					FechaUtils.getFechaFromParse(itemsLine[6]));
+			esfuerzo.setUsuarioRegistro(itemsLine[7]);
+		}
+		return esfuerzo;
+	}
+	
 	private String getRowDeObjectEntity(Esfuerzo entity){
 		String row = null;
 		Calendar calFecReg = null, 

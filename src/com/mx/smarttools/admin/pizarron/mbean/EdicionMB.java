@@ -44,6 +44,8 @@ public class EdicionMB {
 	
 	private List<HistoriasUsuario> selectHistToSprint;
 	private List<HistoriasUsuario> historiasRows;
+	
+	private Esfuerzo newSprint;
 
 	@PostConstruct
     public void init() {
@@ -78,11 +80,14 @@ public class EdicionMB {
 		proyecto = getPizarronMB().getProyectoService().fidProyecto(projectId);
 		
 		Map<String, String> queryParameter = new HashMap<String,String>();
+		queryParameter.put("idProyecto", 
+				Integer.valueOf(projectId).toString());
 		
 		try{
 			if(menuOption != null){
 				if(this.menuOption.equals("sprints")){
 					queryParameter.put("idEsfuerzo", Integer.toString(0));
+					newSprint = new Esfuerzo();
 					System.out.println("Opcion seleccionada: "+menuOption);
 					historiasRows = getPizarronMB().getHistoriaService().getHistoriasByParameter(queryParameter);
 				}
@@ -211,5 +216,13 @@ public class EdicionMB {
 
 	public void setHistoriasRows(List<HistoriasUsuario> historiasRows) {
 		this.historiasRows = historiasRows;
+	}
+
+	public Esfuerzo getNewSprint() {
+		return newSprint;
+	}
+
+	public void setNewSprint(Esfuerzo newSprint) {
+		this.newSprint = newSprint;
 	}
 }
