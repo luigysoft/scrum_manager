@@ -170,13 +170,16 @@ public class EsfuerzoDAOImpl implements EsfuerzoDAO {
 		// TODO Auto-generated method stub
 		List<Esfuerzo> esfuerzoList = getAll();
 		
-		Iterator<Esfuerzo> iter = esfuerzoList.iterator();
-		
-		while(iter.hasNext()){
-			Esfuerzo aux = iter.next();
+		if(esfuerzoList != null &&  !esfuerzoList.isEmpty()){
 			
-			if(aux.getProyectoFk() != idProy){
-				iter.remove();
+			Iterator<Esfuerzo> iter = esfuerzoList.iterator();
+
+			while(iter.hasNext()){
+				Esfuerzo aux = iter.next();
+
+				if(aux.getProyectoFk() != idProy){
+					iter.remove();
+				}
 			}
 		}
 		

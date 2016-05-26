@@ -134,7 +134,14 @@
         					<h:panelGroup><p:commandLink value="Continuar" update="display" /></h:panelGroup>
 						
 						</h:panelGrid>
-						<p:outputPanel id="display" style="width:400px;padding-left:5px;margin-top:10px">
+						<h:panelGrid id="treeSprintPanel">
+							<p:tree value="#{edicionMB.treeSprint}" var="node">
+								<p:treeNode>
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</h:panelGrid>
+						<p:outputPanel id="display" style="width:500px;padding-left:5px;margin-top:10px">
         					<p:dataList value="#{edicionMB.selectHistToSprint}" var="story" emptyMessage="No hay historias seleccionadas">
             					#{story.nombreHistoria} #{story.descripcionHistoria}
         					</p:dataList>

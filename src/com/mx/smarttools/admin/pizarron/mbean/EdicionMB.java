@@ -24,6 +24,7 @@ import com.mx.smarttools.admin.pizarron.mbean.lazy.ProyectoDataModel;
 import com.mx.smarttools.admin.proyecto.model.Esfuerzo;
 import com.mx.smarttools.admin.proyecto.model.HistoriasUsuario;
 import com.mx.smarttools.admin.proyecto.model.Proyecto;
+import com.mx.smarttools.admin.proyecto.model.TareasHistoria;
 
 @ViewScoped
 @ManagedBean
@@ -87,17 +88,42 @@ public class EdicionMB {
 		queryParameter.put("idProyecto", 
 				Integer.valueOf(projectId).toString());
 		
+		Map<String, String> querySprintParameter = null;
+		List<HistoriasUsuario> historiasSprint = null;
+		
 		try{
 			if(menuOption != null){
+				
 				if(this.menuOption.equals("sprints")){
+					
 					queryParameter.put("idEsfuerzo", Integer.toString(0));
 					newSprint = new Esfuerzo();
-					System.out.println("Opcion seleccionada: "+menuOption);
-					historiasRows = getPizarronMB().getHistoriaService().getHistoriasByParameter(queryParameter);
 					
+					System.out.println("Opcion seleccionada: "+menuOption);
+					
+					historiasRows = getPizarronMB().getHistoriaService().getHistoriasByParameter(queryParameter);
 					List<Esfuerzo> esfuerzoList = getPizarronMB().getEsfuerzoService().getEsfuerzosByIdProject(projectId);
 					
 					treeSprint = new DefaultTreeNode("Sprint", null);
+					
+					for(Esfuerzo esfuerzo: esfuerzoList){
+						
+						TreeNode node = new DefaultTreeNode(esfuerzo.getEsfuerzoId() +
+								" " + esfuerzo.getObjetivo(), treeSprint);
+						
+						 querySprintParameter = new HashMap<String,String>();
+						 querySprintParameter.put("idProyecto",
+								 Integer.valueOf(projectId).toString());
+						 querySprintParameter.put("idEsfuerzo",
+								 Integer.valueOf(esfuerzo.getEsfuerzoId()).
+								 toString());
+						 historiasSprint = getPizarronMB().getHistoriaService().getHistoriasByParameter(querySprintParameter);
+						
+						for(HistoriasUsuario historia: historiasSprint){	
+							TreeNode leaf = new DefaultTreeNode(historia.getNombreHistoria() + " " +
+									historia.getDescripcionHistoria(),node);
+						}
+					}
 				}
 			}
 		}catch(Exception ex){
